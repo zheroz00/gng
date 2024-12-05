@@ -1,0 +1,26 @@
+# Environment variables
+.env
+
+# Data directories
+**/data/
+
+# Logs
+**/logs/
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Docker volumes
+infrastructure/minio/data/
+infrastructure/redis/data/
+databases/nocodb_system/data/
+databases/business_data/data/
+apps/nocodb/data/ 

@@ -1,0 +1,56 @@
+services:
+  nocodb_system_db:
+    container_name: gng-nocodb_system_db
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_INITDB_ARGS: "--locale-provider=icu --icu-locale=en-US"
+    volumes:
+      - "./nocodb_system/data:/var/lib/postgresql/data"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 2s
+      retries: 10
+    restart: always
+    networks:
+      - n8n_network
+
+  business_data_db:
+    container_name: gng-business_data_db
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_INITDB_ARGS: "--locale-provider=icu --icu-locale=en-US"
+    volumes:
+      - "./business_data/data:/var/lib/postgresql/data"
+      - ../sql-init/init/init-pgvector.sql:/docker-entrypoint-initdb.d/init-pgvector.sql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 2s
+      retries: 10
+    restart: always
+    networks:
+      - n8n_network
+
+  appsmith_db:
+    container_name: gng-appsmith_db
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_DB: appsmith
+      POSTGRES_USER: ${APPSMITH_DB_USER:-appsmith}
+      POSTGRES_PASSWORD: ${APPSMITH_DB_PASSWORD:-appsmith}
+      POSTGRES_INITDB_ARGS: "--locale-provider=icu --icu-locale=en-US"
+    volumes:
+      - "../apps/appsmith/data/postgres:/var/lib/postgresql/data"
+    networks:
+      - n8n_network
+
+networks:
+  n8n_network:
+    external: true 

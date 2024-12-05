@@ -1,0 +1,7 @@
+include:
+  - infrastructure/docker-compose.yml
+  - databases/docker-compose.yml
+  - apps/nocodb/docker-compose.yml
+  - apps/appsmith/docker-compose.yml
+  - apps/tooljet/docker-compose.yml
+  - apps/chat2db/docker-compose.yml 

@@ -1,0 +1,22 @@
+services:
+  appsmith:
+    container_name: gng-appsmith
+    image: appsmith/appsmith-ce
+    ports:
+      - "86:80"
+    volumes:
+      - "./data:/appsmith-stacks"
+    environment:
+      APPSMITH_POSTGRESQL_HOST: appsmith_db
+      APPSMITH_POSTGRESQL_PORT: 5432
+      APPSMITH_POSTGRESQL_DATABASE: appsmith
+      APPSMITH_POSTGRESQL_USER: ${APPSMITH_DB_USER:-appsmith}
+      APPSMITH_POSTGRESQL_PASSWORD: ${APPSMITH_DB_PASSWORD:-appsmith}
+      APPSMITH_REDIS_URL: redis://redis:6379
+      APPSMITH_DISABLE_TELEMETRY: "true"
+    networks:
+      - n8n_network
+
+networks:
+  n8n_network:
+    external: true 

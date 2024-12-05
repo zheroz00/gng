@@ -1,0 +1,21 @@
+services:
+  nocodb:
+    container_name: gng-nocodb
+    image: "nocodb/nocodb:latest"
+    environment:
+      NC_DB: "pg://gng-nocodb_system_db:5432?u=${POSTGRES_USER}&p=${POSTGRES_PASSWORD}&d=${POSTGRES_DB}"
+      NC_DATA_DB: "pg://gng-business_data_db:5432?u=${POSTGRES_USER}&p=${POSTGRES_PASSWORD}&d=${POSTGRES_DB}"
+      NC_REDIS_URL: ${REDIS_URL}
+      NC_CACHE_STORE: "redis"
+      NC_DISABLE_CACHE: "false"
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./data:/usr/app/data"
+    restart: always
+    networks:
+      - n8n_network
+
+networks:
+  n8n_network:
+    external: true 

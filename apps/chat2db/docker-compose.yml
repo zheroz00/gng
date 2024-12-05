@@ -1,0 +1,17 @@
+services:
+  chat2db:
+    container_name: gng-chat2db
+    image: chat2db/chat2db:latest
+    volumes:
+      - "./data:/root/.chat2db"
+    ports:
+      - "10824:10824"
+    environment:
+      - SPRING_PROFILES_ACTIVE=release
+    restart: always
+    networks:
+      - n8n_network
+
+networks:
+  n8n_network:
+    external: true 

@@ -1,0 +1,19 @@
+services:
+  tooljet:
+    container_name: gng-tooljet
+    image: tooljet/try:ee-lts-latest
+    platform: linux/amd64
+    ports:
+      - "89:80"
+    volumes:
+      - tooljet_data:/var/lib/postgresql/13/main
+    restart: unless-stopped
+    networks:
+      - n8n_network
+
+networks:
+  n8n_network:
+    external: true
+
+volumes:
+  tooljet_data: 
