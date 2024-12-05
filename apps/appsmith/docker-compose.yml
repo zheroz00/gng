@@ -3,7 +3,7 @@ services:
     container_name: gng-appsmith
     image: appsmith/appsmith-ce
     ports:
-      - "86:80"
+      - "10821:80"
     volumes:
       - "./data:/appsmith-stacks"
     environment:

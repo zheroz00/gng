@@ -9,7 +9,7 @@ services:
       NC_CACHE_STORE: "redis"
       NC_DISABLE_CACHE: "false"
     ports:
-      - "8080:8080"
+      - "10822:8080"
     volumes:
       - "./data:/usr/app/data"
     restart: always

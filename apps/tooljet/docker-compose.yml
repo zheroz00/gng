@@ -4,7 +4,7 @@ services:
     image: tooljet/try:ee-lts-latest
     platform: linux/amd64
     ports:
-      - "89:80"
+      - "10823:80"
     volumes:
       - tooljet_data:/var/lib/postgresql/13/main
     restart: unless-stopped
